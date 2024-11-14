@@ -1,4 +1,4 @@
-﻿using IntroduccionAEFCore.Entidades;
+using IntroduccionAEFCore.Entidades;
 using IntroduccionAEFCore.Entidades.Seeding;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -14,7 +14,17 @@ namespace IntroduccionAEFCore
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+			//Usando Fluent API para configurar las propiedades de la tabla 
+			//modelBuilder.Entity<Actor>().Property(a=>a.Fortuna).HasPrecision(18, 2);
+			//modelBuilder.Entity<Actor>().Property(a=>a.Fortuna).HasColumType("date");//para colocar manualmentte el tipo
+			//modelBuilder.Entity<Actor>().Property(a=>a.Fortuna).HasMaxLenth(150);
+
+   			//esta configuraciones se pueden hacer con Annotations. directo en el modelo, ej:  [Requiered, o maxlenth etc]
+  				//se separo esta config en archivos aparte y se aplico con este codigo:
+ 		       modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+
             SeedingInicial.Seed(modelBuilder);
         }
 
